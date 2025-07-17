@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block title %}About | Crop Recommendation{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <h2 class="fw-bold mb-3" style="color:#388e3c;">About CropAI</h2>
+            <p class="fs-5">CropAI is an intelligent crop recommendation system designed to empower Indian farmers with the power of Artificial Intelligence. By analyzing soil and weather data, our model suggests the most suitable crop for your land, maximizing yield and sustainability.</p>
+            <ul class="list-unstyled fs-5">
+                <li><i class="bi bi-cpu me-2 text-success"></i> Powered by Decision Tree AI</li>
+                <li><i class="bi bi-droplet-half me-2 text-primary"></i> Considers soil nutrients, pH, rainfall, and more</li>
+                <li><i class="bi bi-globe2 me-2 text-warning"></i> Designed for Indian climate and agriculture</li>
+            </ul>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow-lg" style="max-height:320px;object-fit:cover;" alt="About Farming">
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}Contact | Crop Recommendation{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <h2 class="fw-bold mb-3" style="color:#388e3c;">Contact Us</h2>
+            <form class="p-4 rounded-4 shadow-lg bg-white bg-opacity-75">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control form-control-lg" placeholder="you@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control form-control-lg" rows="4" placeholder="Your message..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg px-5">Send <i class="bi bi-send ms-2"></i></button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&w=600&q=80" class="img-fluid rounded-4 shadow-lg" style="max-height:320px;object-fit:cover;" alt="Contact Farming">
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}History | Crop Recommendation{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4" style="color:#388e3c;">Prediction Search History</h2>
+    {% if history and history|length > 0 %}
+        <div class="row g-4">
+            {% for item in history %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 rounded-4 text-center p-3 h-100">
+                        <img src="{{ item.image }}" alt="{{ item.crop|capitalize }}" class="mb-3" style="width:90px;height:90px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(56,142,60,0.13);">
+                        <div class="fw-bold fs-4" style="color:#2e7d32;">{{ item.crop|capitalize }}</div>
+                        <div class="text-muted small mt-2">{{ item.time }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center shadow-sm">No prediction history yet. Try predicting a crop!</div>
+    {% endif %}
+</div>
+{% endblock %}

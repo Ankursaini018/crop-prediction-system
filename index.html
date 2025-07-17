@@ -1,0 +1,345 @@
+{% extends 'layout.html' %}
+{% block title %}Home | Crop Recommendation{% endblock %}
+{% block content %}
+<div class="container py-7">
+    <div class="row align-items-center mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3 animate-fade-down" style="color: #388e3c;">🌱 Smart Crop Recommendation</h1>
+            <img src="/static/istockphoto-543212762-612x612.jpg" class="img-fluid rounded-4 shadow-lg mb-4 hero-animate img-hover-animate" style="width:100%;max-height:400px;object-fit:cover;" alt="Tractor in Field">
+            <p class="lead mb-4 animate-fade-up" style="color: #4e342e;">Enter your soil and weather details to get the best crop suggestion for your farm. Powered by AI, inspired by nature.</p>
+            {% if prediction %}
+            {% set crop_images = {
+                'rice': '/static/crop_rice.jpg',
+                'wheat': '/static/crop_wheat.jpg',
+                'maize': '/static/crop_maize.jpg',
+                'potato': '/static/crop_potato.jpg',
+                'sugarcane': '/static/crop_sugarcane.jpg',
+                'cotton': '/static/crop_cotton.jpg',
+                'barley': '/static/crop_barley.jpg',
+                'millet': '/static/crop_millet.jpg',
+                'peas': '/static/crop_peas.jpg',
+                'banana': '/static/crop_banana.jpg',
+                'mango': '/static/crop_mango.jpg',
+                'apple': '/static/crop_apple.jpg',
+                'orange': '/static/crop_orange.jpg',
+                'grapes': '/static/crop_grapes.jpg',
+                'coconut': '/static/crop_coconut.jpg',
+                'coffee': '/static/crop_coffee.jpg',
+                'jute': '/static/crop_jute.jpg',
+                'lentil': '/static/crop_lentil.jpg',
+                'kidneybeans': '/static/crop_kidneybeans.jpg',
+                'pigeonpeas': '/static/crop_pigeonpeas.jpg',
+                'chickpea': '/static/crop_chickpea.jpg',
+                'mothbeans': '/static/crop_mothbeans.jpg',
+                'mungbean': '/static/crop_mungbean.jpg',
+                'blackgram': '/static/crop_blackgram.jpg',
+                'muskmelon': '/static/crop_muskmelon.jpg',
+                'watermelon': '/static/crop_watermelon.jpg',
+                'papaya': '/static/crop_papaya.jpg',
+                'pomegranate': '/static/crop_pomegranate.jpg',
+            } %}
+            {% set crop_key = prediction|lower %}
+            {% if crop_key in crop_images %}
+                {% set crop_img = crop_images[crop_key] %}
+            {% else %}
+                {% set crop_img = 'https://source.unsplash.com/400x400/?' ~ crop_key ~ ',crop,field,plant' %}
+            {% endif %}
+            <div class="alert alert-success shadow-lg fs-5 d-inline-block text-center animate-crop-prediction p-4 animate-fade-in" style="min-width:260px;">
+                <img src="{{ crop_img }}" alt="{{ prediction|capitalize }}" class="crop-pred-img-large mb-3">
+                <div class="fw-bold" style="font-size:1.5rem;color:#2e7d32;">{{ prediction|capitalize }}</div>
+                <div class="mt-2" style="font-size:1.1rem;">Recommended Crop</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg h-100 text-center bg-success bg-opacity-10 feature-animate animate-slide-up" style="animation-delay:0.1s;">
+                <div class="card-body">
+                    <i class="bi bi-cpu-fill display-4 text-success mb-3"></i>
+                    <h5 class="card-title fw-bold">AI Powered</h5>
+                    <p class="card-text">Advanced machine learning for accurate crop suggestions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg h-100 text-center bg-warning bg-opacity-10 feature-animate animate-slide-up" style="animation-delay:0.25s;">
+                <div class="card-body">
+                    <i class="bi bi-globe2 display-4 text-warning mb-3"></i>
+                    <h5 class="card-title fw-bold">Indian Climate</h5>
+                    <p class="card-text">Tailored for Indian soil, weather, and farming needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg h-100 text-center bg-info bg-opacity-10 feature-animate animate-slide-up" style="animation-delay:0.4s;">
+                <div class="card-body">
+                    <i class="bi bi-emoji-smile display-4 text-info mb-3"></i>
+                    <h5 class="card-title fw-bold">Easy to Use</h5>
+                    <p class="card-text">Simple, beautiful interface for every farmer and enthusiast.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center mb-4">
+        <div class="col-12 text-center">
+            <a href="/project" class="btn btn-lg shadow-sm px-5 py-3 animate-pop-in btn-hover-animate btn-3d btn-3d-gloss btn-3d-square btn-3d-black" style="font-size:1.3rem;">Try Crop Recommendation <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+    </div>
+    <!-- About Section Start -->
+    <div class="row align-items-center py-5">
+        <div class="col-md-6 mb-4 mb-md-0 animate-fade-left">
+            <h2 class="fw-bold mb-3" style="color:#388e3c;">About CropAI</h2>
+            <p class="fs-5">CropAI is an intelligent crop recommendation system designed to empower Indian farmers with the power of Artificial Intelligence. By analyzing soil and weather data, our model suggests the most suitable crop for your land, maximizing yield and sustainability.</p>
+            <ul class="list-unstyled fs-5">
+                <li><i class="bi bi-cpu me-2 text-success"></i> Powered by Decision Tree AI</li>
+                <li><i class="bi bi-droplet-half me-2 text-primary"></i> Considers soil nutrients, pH, rainfall, and more</li>
+                <li><i class="bi bi-globe2 me-2 text-warning"></i> Designed for Indian climate and agriculture</li>
+            </ul>
+        </div>
+        <div class="col-md-6 text-center animate-fade-right">
+            <img src="/static/smart-farming-and-precision-agriculture__720.jpg" class="img-fluid rounded-4 shadow-lg img-hover-animate" style="max-height:320px;object-fit:cover;" alt="Smart Farming and Precision Agriculture">
+        </div>
+    </div>
+    <!-- About Section End -->
+</div>
+<style>
+body {
+    background: linear-gradient(135deg, #e0f7fa 0%, #a5d6a7 100%);
+    min-height: 100vh;
+}
+.farming-hero-img {
+    max-height: 350px;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 8px 32px rgba(56, 142, 60, 0.15);
+}
+.faded-img {
+    filter: grayscale(30%) blur(0.5px);
+    transition: opacity 0.3s;
+}
+.faded-img:hover {
+    opacity: 0.5;
+}
+.hero-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+/* Animation Styles */
+.hero-animate,
+.img-hover-animate {
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s;
+}
+.hero-animate:hover,
+.img-hover-animate:hover {
+    transform: scale(1.045);
+    box-shadow: 0 12px 36px rgba(56,142,60,0.18);
+    z-index: 2;
+}
+.feature-animate .bi,
+.feature-animate img {
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s;
+}
+.feature-animate:hover .bi,
+.feature-animate:hover img {
+    transform: scale(1.18);
+    box-shadow: 0 6px 18px rgba(56,142,60,0.13);
+}
+.btn-hover-animate {
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s;
+}
+.btn-hover-animate:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(56,142,60,0.18);
+}
+.footer-crop .contact-icons a {
+    transition: color 0.2s, transform 0.2s;
+}
+.footer-crop .contact-icons a:hover {
+    color: #388e3c;
+    transform: scale(1.18);
+    animation: pulse 0.5s;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.22); }
+    100% { transform: scale(1.18); }
+}
+.crop-pred-img-large {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(56,142,60,0.18);
+    opacity: 0;
+    transform: scale(0.7);
+    animation: cropImgIn 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+    border: 6px solid #fff;
+    background: #f8f8f8;
+}
+.animate-crop-prediction {
+    animation: cropPredFadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes cropPredFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* New Animations */
+.animate-fade-down {
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: fadeDown 1s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+}
+@keyframes fadeDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+}
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
+}
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUp 1s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-pop-in {
+    opacity: 0;
+    transform: scale(0.7);
+    animation: popIn 0.7s cubic-bezier(0.4,0,0.2,1) 0.7s forwards;
+}
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.animate-fade-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    animation: fadeLeft 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+}
+@keyframes fadeLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.animate-fade-right {
+    opacity: 0;
+    transform: translateX(40px);
+    animation: fadeRight 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+}
+@keyframes fadeRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.btn-3d {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #155724;
+    box-shadow: 0 12px 32px 0 rgba(56, 142, 60, 0.35), 0 2.5px 0 #2e7d32 inset, 0 1.5px 0 #fff3 inset;
+    border: none;
+    border-radius: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.btn-3d:active {
+    box-shadow: 0 3px 10px 0 rgba(56, 142, 60, 0.18), 0 1.5px 0 #2e7d32 inset;
+    transform: translateY(2px) scale(0.97);
+    background: linear-gradient(135deg, #38f9d7 0%, #43e97b 100%);
+}
+.btn-3d:focus {
+    outline: 2px solid #43e97b;
+    outline-offset: 2px;
+}
+.btn-3d-gloss::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 100%);
+    border-top-left-radius: 2.2rem;
+    border-top-right-radius: 2.2rem;
+    pointer-events: none;
+    z-index: 2;
+}
+.btn-3d-square {
+    border-radius: 0.7rem !important;
+    box-shadow: 0 10px 32px 0 rgba(56, 142, 60, 0.38), 0 2.5px 0 #2e7d32 inset, 0 1.5px 0 #fff3 inset;
+    border: 2.5px solid #38f9d7;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #155724;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: box-shadow 0.18s, transform 0.18s, background 0.18s, border 0.18s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.btn-3d-square:active {
+    box-shadow: 0 2px 8px 0 rgba(56, 142, 60, 0.18), 0 1.5px 0 #2e7d32 inset;
+    transform: translateY(2px) scale(0.97);
+    background: linear-gradient(135deg, #38f9d7 0%, #43e97b 100%);
+    border-color: #43e97b;
+}
+.btn-3d-square:focus {
+    outline: 2px solid #43e97b;
+    outline-offset: 2px;
+}
+.btn-3d-gloss::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 38%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.08) 100%);
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+    pointer-events: none;
+    z-index: 2;
+}
+.btn-3d-black {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
+    color: #fff !important;
+    border: 2.5px solid #232526 !important;
+    box-shadow: 0 12px 32px 0 rgba(30,30,30,0.38), 0 2.5px 0 #111 inset, 0 1.5px 0 #fff3 inset;
+}
+.btn-3d-black:active {
+    background: linear-gradient(135deg, #414345 0%, #232526 100%) !important;
+    border-color: #414345 !important;
+}
+.btn-3d-gloss.btn-3d-black::before {
+    background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 100%);
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+}
+</style>
+{% endblock %}
+

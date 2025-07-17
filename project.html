@@ -1,0 +1,161 @@
+{% extends 'layout.html' %}
+{% block title %}Project | Crop Recommendation{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 bg-white bg-opacity-90">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-6 p-4">
+                        <h2 class="fw-bold mb-3" style="color:#388e3c;">Try the Crop Recommendation Form</h2>
+                        <p class="mb-4">Fill in your soil and weather details below. Our AI will suggest the best crop for your field, helping you maximize yield and sustainability.</p>
+                        <form action="{{ url_for('predict') }}" method="POST">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Nitrogen (N)</label>
+                                    <input type="number" step="any" name="N" class="form-control form-control-lg" placeholder="e.g. 90" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Phosphorus (P)</label>
+                                    <input type="number" step="any" name="P" class="form-control form-control-lg" placeholder="e.g. 42" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Potassium (K)</label>
+                                    <input type="number" step="any" name="K" class="form-control form-control-lg" placeholder="e.g. 43" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Temperature (°C)</label>
+                                    <input type="number" step="any" name="temperature" class="form-control form-control-lg" placeholder="e.g. 22.5" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Humidity (%)</label>
+                                    <input type="number" step="any" name="humidity" class="form-control form-control-lg" placeholder="e.g. 80" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">pH</label>
+                                    <input type="number" step="any" name="ph" class="form-control form-control-lg" placeholder="e.g. 6.5" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Rainfall (mm)</label>
+                                    <input type="number" step="any" name="rainfall" class="form-control form-control-lg" placeholder="e.g. 200" required>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <button type="submit" class="btn btn-success btn-lg px-5 shadow-sm">
+                                    <i class="bi bi-search-heart me-2"></i> Recommend Crop
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 text-center p-4">
+                        <img src="/static/sector_visiontek-1024-×-874-px-9.png" class="img-fluid rounded-4 shadow mb-3" style="max-height:260px;object-fit:cover;" alt="Plant Science Lab">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if prediction %}
+    {% set crop_images = {
+        'rice': '/static/crop_rice.jpg',
+        'wheat': '/static/crop_wheat.jpg',
+        'maize': '/static/crop_maize.jpg',
+        'potato': '/static/crop_potato.jpg',
+        'sugarcane': '/static/crop_sugarcane.jpg',
+        'cotton': '/static/crop_cotton.jpg',
+        'barley': '/static/crop_barley.jpg',
+        'millet': '/static/crop_millet.jpg',
+        'peas': '/static/crop_peas.jpg',
+        'banana': '/static/crop_banana.jpg',
+        'mango': '/static/crop_mango.jpg',
+        'apple': '/static/crop_apple.jpg',
+        'orange': '/static/crop_orange.jpg',
+        'grapes': '/static/crop_grapes.jpg',
+        'coconut': '/static/crop_coconut.jpg',
+        'coffee': '/static/crop_coffee.jpg',
+        'jute': '/static/crop_jute.jpg',
+        'lentil': '/static/crop_lentil.jpg',
+        'kidneybeans': '/static/crop_kidneybeans.jpg',
+        'pigeonpeas': '/static/crop_pigeonpeas.jpg',
+        'chickpea': '/static/crop_chickpea.jpg',
+        'mothbeans': '/static/crop_mothbeans.jpg',
+        'mungbean': '/static/crop_mungbean.jpg',
+        'blackgram': '/static/crop_blackgram.jpg',
+        'muskmelon': '/static/crop_muskmelon.jpg',
+        'watermelon': '/static/crop_watermelon.jpg',
+        'papaya': '/static/crop_papaya.jpg',
+        'pomegranate': '/static/crop_pomegranate.jpg',
+    } %}
+    {% set crop_key = prediction|lower %}
+    {% if crop_key in crop_images %}
+        {% set crop_img = crop_images[crop_key] %}
+    {% else %}
+        {% set crop_img = 'https://source.unsplash.com/400x400/?' ~ crop_key ~ ',crop,field,plant' %}
+    {% endif %}
+    <div class="text-center mt-5 animate-crop-prediction">
+        <img src="{{ crop_img }}" alt="{{ prediction|capitalize }}" class="crop-pred-img-full mb-3">
+        <div class="fw-bold" style="font-size:1.5rem;color:#2e7d32;">{{ prediction|capitalize }}</div>
+        <div class="mt-2" style="font-size:1.1rem;">Recommended Crop</div>
+    </div>
+{% endif %}
+<style>
+.faded-img {
+    filter: grayscale(30%) blur(0.5px);
+    transition: opacity 0.3s;
+}
+.faded-img:hover {
+    opacity: 0.5;
+}
+.crop-pred-img-large {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(56,142,60,0.18);
+    opacity: 0;
+    transform: scale(0.7);
+    animation: cropImgIn 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+    border: 6px solid #fff;
+    background: #f8f8f8;
+}
+@keyframes cropImgIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.animate-crop-prediction {
+    animation: cropPredFadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes cropPredFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.crop-pred-img-pop {
+    opacity: 0;
+    transform: scale(0.5);
+    animation: cropImgPopIn 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+}
+@keyframes cropImgPopIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    60% { opacity: 1; transform: scale(1.15); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.crop-pred-img-full {
+    display: block;
+    margin: 0 auto 1rem auto;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 320px;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 24px rgba(56,142,60,0.18);
+    opacity: 0;
+    transform: scale(0.5);
+    animation: cropImgPopIn 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+    border: 2px solid #fff;
+    background: #f8f8f8;
+    object-fit: contain;
+}
+</style>
+{% endblock %}
